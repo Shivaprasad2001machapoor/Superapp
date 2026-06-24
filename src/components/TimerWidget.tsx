@@ -9,6 +9,7 @@ export default function TimerWidget() {
   const [timeLeft, setTimeLeft] = useState(0); // in seconds
   const [totalDuration, setTotalDuration] = useState(0); // in seconds
   const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [isTimeUp, setIsTimeUp] = useState(false);
 
   const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -70,6 +71,7 @@ export default function TimerWidget() {
 
   const resetTimer = () => {
     setIsTimerRunning(false);
+    setIsTimeUp(false);
     setHours(0);
     setMinutes(0);
     setSeconds(0);
@@ -78,6 +80,7 @@ export default function TimerWidget() {
   };
 
   const triggerAlarm = () => {
+    setIsTimeUp(true);
     try {
       const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
       const playBeep = (freq: number, startTime: number, duration: number) => {
@@ -100,7 +103,6 @@ export default function TimerWidget() {
     } catch (e) {
       console.warn("Web Audio API not supported/allowed in this iframe context.");
     }
-    alert("Timer complete! Time is up.");
   };
 
   const formatTimeStr = (totalSecs: number) => {
@@ -119,8 +121,23 @@ export default function TimerWidget() {
   return (
     <div
       id="widget_working_timer"
-      className="bg-[#1e1e1e]/60 border border-[#2d2d2d] rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row items-center gap-8 shadow-2xl min-h-[220px]"
+      className="bg-[#1e1e1e]/60 border border-[#2d2d2d] rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row items-center gap-8 shadow-2xl min-h-[220px] relative overflow-hidden"
     >
+      {/* Visual Alarm Alert Overlay */}
+      {isTimeUp && (
+        <div className="absolute inset-0 bg-black/95 backdrop-blur-md rounded-3xl flex flex-col items-center justify-center p-6 text-center z-30 border border-red-500/20">
+          <span className="text-4xl mb-2 animate-bounce">⏰</span>
+          <h4 className="text-lg font-black text-white uppercase tracking-wider mb-1">Time's Up!</h4>
+          <p className="text-xs text-gray-400 mb-4 font-medium">Your countdown has finished successfully.</p>
+          <button
+            onClick={() => setIsTimeUp(false)}
+            className="px-6 py-2.5 bg-[#FF4ADE] hover:bg-[#eb42cd] text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all cursor-pointer"
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
+
       {/* Left Timer Dial Progress */}
       <div id="timer_visual_dial" className="relative flex items-center justify-center shrink-0">
         <svg className="w-36 h-36 transform -rotate-90">

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useStore } from "../store/useStore";
 import { CategoryId, Movie } from "../types";
 import { categoryMovies } from "../data/movies";
-import { fetchMoviesByCategory } from "../services/movieApi";
+import { fetchMoviesByCategory } from "../api/movies";
 import MovieCard from "../components/MovieCard";
 import MovieModal from "../components/MovieModal";
 import { Film, ArrowLeft, Loader2 } from "lucide-react";
@@ -67,7 +67,7 @@ export default function Movies() {
             Super app
           </h2>
           <span className="text-xs text-gray-500 font-extrabold tracking-widest uppercase">
-            Entertainment Discovery Hub
+            Entertainment
           </span>
         </div>
 
@@ -89,10 +89,10 @@ export default function Movies() {
       >
         <div className="flex flex-col gap-2">
           <h1 id="discovery_greeting_heading" className="text-xl md:text-2xl font-black tracking-tight text-white">
-            Personalized entertainment tailored for you
+            Entertainment curated for you
           </h1>
           <p id="discovery_greeting_subtitle" className="text-xs md:text-sm text-gray-400">
-            Dynamically fetched registry recommendations matching your selected genre categories.
+            A handpicked selection of movies and shows based on your favorite genres.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -113,7 +113,7 @@ export default function Movies() {
           {loading ? (
             <div className="flex flex-col items-center justify-center py-20 gap-4 text-gray-500 font-extrabold text-sm tracking-widest uppercase">
               <Loader2 className="w-10 h-10 text-[#72DB73] animate-spin" />
-              <span>Fetching Live Cinema Register...</span>
+              <span>Loading your entertainment feed...</span>
             </div>
           ) : (
             selectedCategories.map((catId) => {

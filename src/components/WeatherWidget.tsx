@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { WeatherData } from "../types";
-import { fetchCurrentWeather } from "../services/weatherApi";
+import { fetchCurrentWeather } from "../api/weather";
 import {
   Sun,
   Cloud,
@@ -80,9 +80,9 @@ export default function WeatherWidget({ currentTime }: WeatherWidgetProps) {
       {/* Top Bar: Date & Time Clock */}
       <div
         id="weather_top_clock"
-        className="bg-[#FF4ADE] px-6 py-4 flex items-center justify-center font-black text-lg md:text-xl text-black select-none text-center"
+        className="bg-[#1e1e1e] border-b border-white/5 px-6 py-4 flex items-center justify-center font-black text-base md:text-lg text-white select-none text-center"
       >
-        <span id="clock_text">{formatClock(currentTime)}</span>
+        <span id="clock_text" className="font-mono tracking-tight text-[#FF4ADE]">{formatClock(currentTime)}</span>
       </div>
 
       {/* Bottom: Current Status */}

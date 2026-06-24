@@ -47,7 +47,7 @@ export default function Dashboard() {
       {/* Top action header */}
       <div className="w-full max-w-7xl mx-auto flex justify-between items-center mb-6">
         <span className="text-sm font-black tracking-widest text-[#72DB73] uppercase">
-          Live Dashboard
+          Dashboard
         </span>
         <button
           onClick={handleLogout}

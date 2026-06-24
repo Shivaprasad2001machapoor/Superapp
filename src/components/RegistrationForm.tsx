@@ -26,23 +26,23 @@ export default function RegistrationForm({ onSuccess }: RegistrationFormProps) {
     const usernamePattern = /^[a-zA-Z0-9]+$/;
 
     if (!formData.name.trim()) {
-      tempErrors.name = "Name field cannot be left blank.";
+      tempErrors.name = "Field is required";
     } else if (!alphaPattern.test(formData.name)) {
-      tempErrors.name = "Name must strictly contain alphabetic characters and spaces.";
+      tempErrors.name = "Name should only contain letters";
     }
 
     if (!formData.username.trim()) {
-      tempErrors.username = "Username field cannot be left blank.";
+      tempErrors.username = "Field is required";
     } else if (!usernamePattern.test(formData.username)) {
-      tempErrors.username = "Username must be alphanumeric with no spaces.";
+      tempErrors.username = "Username must be alphanumeric with no spaces";
     }
 
     if (!emailPattern.test(formData.email)) {
-      tempErrors.email = "Please input a valid email formatting schema.";
+      tempErrors.email = "Please enter a valid email address";
     }
 
     if (!phonePattern.test(formData.mobile)) {
-      tempErrors.mobile = "Mobile field must encompass exactly 10 digital characters.";
+      tempErrors.mobile = "Please enter a 10-digit phone number";
     }
 
     if (!formData.agreeToTerms) {
@@ -130,7 +130,7 @@ export default function RegistrationForm({ onSuccess }: RegistrationFormProps) {
             className="w-4 h-4 rounded bg-[#1e1e1e] border-gray-700 text-[#72DB73] focus:ring-[#72DB73] accent-[#72DB73] mt-1"
           />
           <span className="text-[11px] text-gray-500 font-extrabold tracking-wide leading-tight">
-            Check this box if you want to proceed with registration and data collection.
+            Check this box if you want to proceed
           </span>
         </label>
         {errors.agreeToTerms && (
